@@ -89,7 +89,7 @@ class Inferencer(object):
 
         The depth image after completion.
         """
-        
+        self.depth_max = 2.0
         rgb = cv2.resize(rgb, self.image_size, interpolation = cv2.INTER_NEAREST)
         depth = cv2.resize(depth, self.image_size, interpolation = cv2.INTER_NEAREST)
         depth = np.where(depth < self.depth_min, 0, depth)

@@ -45,16 +45,22 @@ def draw_point_cloud(color, depth, camera_intrinsics, use_mask = False, use_inpa
 
 inferencer = Inferencer()
 
-rgb = np.array(Image.open('data/scene21/1/rgb1.png'), dtype = np.float32)
-depth = np.array(Image.open('data/scene21/1/depth1.png'), dtype = np.float32)
-depth_gt = np.array(Image.open('data/scene21/1/depth1-gt.png'), dtype = np.float32)
+#rgb = np.array(Image.open('data/scene21/1/rgb1.png'), dtype = np.float32)
+#depth = np.array(Image.open('data/scene21/1/depth1.png'), dtype = np.float32)
+#depth_gt = np.array(Image.open('data/scene21/1/depth1-gt.png'), dtype = np.float32)
 
-depth = depth / 1000
-depth_gt = depth_gt / 1000
+#depth = depth / 1000
+#depth_gt = depth_gt / 1000
 
-res, depth = inferencer.inference(rgb, depth, depth_coefficient = 3, inpainting = True)
+#res, depth = inferencer.inference(rgb, depth, depth_coefficient = 3, inpainting = True)
 
 cam_intrinsics = np.load('data/camera_intrinsics/1-camIntrinsics-D435.npy')
+
+cam_intrinsics[0, 0] = 921
+cam_intrinsics[0, 2] = 642
+cam_intrinsics[1, 1] = 921
+cam_intrinsics[1, 2] = 359
+np.save('camIntrinsics-clear.npy', cam_intrinsics)
 
 res = np.clip(res, 0.3, 1.0)
 depth = np.clip(depth, 0.3, 1.0)
